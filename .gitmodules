@@ -1,0 +1,3 @@
+[submodule "fe-itinera"]
+	path = fe-itinera
+	url = https://github.com/domenicolorenti/fe-itinera.git
