@@ -10,7 +10,6 @@ export default function App() {
 
   useEffect(() => {
     if(sideBarEnabled) {
-        console.log("prova commit");
         setSideBarClass("transform -translate-x-50");
         setSidebarChange(true);
     }
