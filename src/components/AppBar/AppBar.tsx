@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { HiMenu, HiOutlineUser } from "react-icons/hi";
+import { HiMenu, HiOutlineUser, HiX } from "react-icons/hi";
 
 const Navbtn = (props: any) => {
   return (
@@ -56,6 +56,18 @@ const AppBar = (props: any) => {
            };
    }, [ref]);}
 
+   const MenuIcon = () => {
+    if(!props.sidebarEnabled) {
+      return (
+        <HiMenu className="text-2xl" />
+      )
+    } else {
+      return (
+        <HiX className="text-2xl" />
+      )
+    }
+   }
+
   return (
     <div className="relative w-max bg-white border-b shadow-lg ">
       <img className="absolute left-0 ml-5 h-16" src="https://cdn.logo.com/hotlink-ok/logo-social.png"/>
@@ -72,7 +84,7 @@ const AppBar = (props: any) => {
             <ProfileDropdown userLogged={props.userLogged} class={dropdownProfileclass}/>
             <button className="px-3 py-3 mx-2 my-2 rounded-lg hover:bg-gray-100 focus:outline-none sm:hidden"
                 onClick={() => {props.setSidebarEnabled(!props.sidebarEnabled)}}>
-              <HiMenu className="text-2xl" />
+              {MenuIcon()}
             </button>
           </>
         )}
