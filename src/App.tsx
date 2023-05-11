@@ -23,21 +23,9 @@ export default function App() {
       <AppBar userLogged={userLogged} sidebarEnabled={sideBarEnabled} setSidebarEnabled={setSideBarEnabled}/>
       <SideBar userLogged={userLogged} setSidebarEnabled={setSideBarEnabled} class={sideBarClass}/>
       <div id="content-div" className="relative h-full">
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-          <h1>Titolo</h1>
-
+        <AppRoutes>
+          
+        </AppRoutes>
       </div>
     </div>
   );
