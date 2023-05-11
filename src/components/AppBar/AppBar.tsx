@@ -15,7 +15,7 @@ const ProfileDropdown = (props: any) => {
     return (
       <div className={"z-40 absolute py-2 right-0 mr-16 mt-16 bg-white rounded-lg border shadow-xl sm:mr-2 " + props.class}>
         <ul className="flex flex-col">
-          <li><h3 className="text-ml my-2 px-4 text-gray-600">Private Area</h3></li>
+          <li><h3 className="text-xl my-2 px-4 text-gray-600">Private Area</h3></li>
           <li><button className="w-full py-2 hover:bg-gray-200 focus:outline-none">Log In</button></li>
         </ul>
       </div>
@@ -24,7 +24,7 @@ const ProfileDropdown = (props: any) => {
   return (
     <div className={"z-40 absolute py-2 right-0 mr-16 mt-16 bg-white rounded-lg border shadow-xl sm:mr-2 " + props.class}>
       <ul className="flex flex-col">
-        <li><h3 className="text-ml m-4 px-4 text-gray-600">Private Area</h3></li>
+        <li><h3 className="text-xl m-4 px-4 text-gray-600">Private Area</h3></li>
         <li><button className="w-full py-2 hover:bg-gray-200 focus:outline-none">Profile</button></li>
         <li><button className="w-full py-2 hover:bg-gray-200 focus:outline-none">Log Out</button></li>
       </ul>
