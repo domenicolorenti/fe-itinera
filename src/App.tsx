@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import AppBar from './components/AppBar/AppBar';
 import SideBar from './components/SideBar/SideBar';
+import AppRoutes from './components/AppRoutes/AppRoutes';
 
 export default function App() {
   const [sideBarClass, setSideBarClass] = useState("transform translate-x-full");
@@ -23,8 +24,8 @@ export default function App() {
       <AppBar userLogged={userLogged} sidebarEnabled={sideBarEnabled} setSidebarEnabled={setSideBarEnabled}/>
       <SideBar userLogged={userLogged} setSidebarEnabled={setSideBarEnabled} class={sideBarClass}/>
       <div id="content-div" className="relative h-full">
-        <AppRoutes>
-          
+        <AppRoutes userLogged={userLogged}>
+
         </AppRoutes>
       </div>
     </div>
