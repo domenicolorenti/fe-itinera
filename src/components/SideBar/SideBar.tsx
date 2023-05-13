@@ -30,6 +30,7 @@ const SideBar = (props: any) => {
     
   return (
     <div className={"z-30 fixed rounded-lg right-0 pt-16 h-full w-full bg-white border transition-transform duration-300 ease-in-out " + props.class}>
+        <h1>Menù</h1>
         <ul className="flex flex-col divide-y">
             {(
                 <>
