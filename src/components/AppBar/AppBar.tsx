@@ -81,7 +81,7 @@ const AppBar = (props: any) => {
 
   return (
     <div className="relative w-max bg-white border-b ">
-      <img className="absolute left-0 ml-5 h-16" src="https://cdn.logo.com/hotlink-ok/logo-social.png" alt=""/>
+      <img className="absolute left-0 ml-5 h-16" src={require("../../res/logo.png")} alt=""/>
       <div className="flex h-16 flex-row justify-end">
         {(
           <>
