@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { HiMenu, HiOutlineUser, HiX } from "react-icons/hi";
+import { Link } from 'react-router-dom';
+import { MenuData } from '../MenuData';
 
 const Navbtn = (props: any) => {
   return (
@@ -34,6 +36,7 @@ const ProfileDropdown = (props: any) => {
 
 const AppBar = (props: any) => {
    const [dropdownProfileclass, setDropdownProfileClass] = useState("invisible");
+   const [itemActive, setItemActive] = useState("/");
 
    const wrapperRefProfile = useRef(null);
    useOutsideAlerter(wrapperRefProfile, "Profile");
@@ -54,7 +57,15 @@ const AppBar = (props: any) => {
                // Unbind the event listener on clean up
                document.removeEventListener("mousedown", handleClickOutside);
            };
-   }, [ref]);}
+   }, [ref, component]);}
+
+   const MenuItem = (props: any) => {
+    const isActive = window.location.pathname === props.link;
+
+    return (
+      <Navbtn text={props.text} />
+    )
+   }
 
    const MenuIcon = () => {
     if(!props.sidebarEnabled) {
@@ -69,14 +80,16 @@ const AppBar = (props: any) => {
    }
 
   return (
-    <div className="relative w-max bg-white border-b shadow-lg ">
-      <img className="absolute left-0 ml-5 h-16" src="https://cdn.logo.com/hotlink-ok/logo-social.png"/>
+    <div className="relative w-max bg-white border-b ">
+      <img className="absolute left-0 ml-5 h-16" src="https://cdn.logo.com/hotlink-ok/logo-social.png" alt=""/>
       <div className="flex h-16 flex-row justify-end">
         {(
           <>
-            <Navbtn text="Scopri" />
-            <Navbtn text="Recensioni" />
-            <Navbtn text="Classifiche" />
+            {MenuData.map((item, val) => (
+                <Link to={item.link} key={val} onClick={()=>{setItemActive(item.title)}}>
+                    <MenuItem key={val} link={item.link} text={item.title} />
+                </Link>
+            ))}
             <button ref={wrapperRefProfile} className="px-3 py-3 mx-2 my-2 rounded-lg hover:bg-gray-200 focus:outline-none" 
                 onClick={() => {setDropdownProfileClass("block")}}>
               <HiOutlineUser className="text-2xl"/>
