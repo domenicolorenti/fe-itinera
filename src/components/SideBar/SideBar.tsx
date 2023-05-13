@@ -18,7 +18,7 @@ const MenuItem = (props: any) => {
     };
   
     return (
-      <Sidebtn text={props.text} onClick={handleOnClick} />
+      <Sidebtn text={props.text} onClick={handleOnClick}/>
     )
   }
   
@@ -38,6 +38,9 @@ const SideBar = (props: any) => {
                             <MenuItem key={val} link={item.link} text={item.title} setSidebarEnabled={props.setSidebarEnabled}/>
                         </Link>
                     ))}
+                    <Link className="mt-8" to={"/profile"} onClick={() => { setItemActive("Profile")}}>
+                        <MenuItem link="/profile" text="Profile" setSidebarEnabled={props.setSidebarEnabled}/>
+                    </Link>
                 </>
             )}
         </ul>
