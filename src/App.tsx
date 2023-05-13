@@ -26,7 +26,7 @@ export default function App() {
     <div id="main-div" className="relative h-full bg-white">
       <AppBar userLogged={userLogged} sidebarEnabled={sideBarEnabled} setSidebarEnabled={setSideBarEnabled}/>
       <SideBar userLogged={userLogged} setSidebarEnabled={setSideBarEnabled} class={sideBarClass}/>
-      <div id="content-div" className="relative h-full">
+      <div id="content-div" className="relative h-full w-full rounded-xl">
         <AppRoutes userLogged={userLogged} />
 
       </div>
