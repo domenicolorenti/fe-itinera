@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Sidebtn = (props: any) => {
     return (
-        <button className={"z-30 text-2xl w-full py-4 hover:bg-gray-200 focus:outline-none " + props.class} >
+        <button className={"z-30 text-2xl w-full py-4 hover:bg-gray-200 focus:outline-none " + props.class} onClick={props.onClick}>
             {props.text}
         </button>
     )
@@ -12,11 +12,16 @@ const Sidebtn = (props: any) => {
 
 const MenuItem = (props: any) => {
     const isActive = window.location.pathname === props.link;
-
+  
+    const handleOnClick = () => {
+        props.setSidebarEnabled(false);
+    };
+  
     return (
-      <Sidebtn text={props.text} onClick={props.setSidebarEnabled(false)}/>
+      <Sidebtn text={props.text} onClick={handleOnClick} />
     )
-   }
+  }
+  
 
 
 const SideBar = (props: any) => {
