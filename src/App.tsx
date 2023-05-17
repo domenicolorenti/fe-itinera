@@ -7,7 +7,7 @@ import AppRoutes from './components/AppRoutes';
 export default function App() {
   const [sideBarClass, setSideBarClass] = useState("transform translate-x-full");
   const [sideBarEnabled, setSideBarEnabled] = useState(false);
-  const [userLogged, setUserLogged] = useState(true);
+  const [userLogged, setUserLogged] = useState(false);
   const [sidebarChange, setSidebarChange] = useState(false);
 
 

@@ -9,10 +9,6 @@ const AppRoutes = (props: any) => {
     return (
         <Routes>
             <Route path="/" element={<Home accessToken={props.accessToken}/>} />
-            <Route path="/reviews" element={<Reviews accessToken={props.accessToken}/>}/>
-            <Route path="/ranking" element={<Ranking />}/>
-            <Route path="/explore" element={<Explore />}/>
-            <Route path="/profile" element={<Profile />}/>
         </Routes>
     )
 }
