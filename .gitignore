@@ -1,0 +1,28 @@
+# Ignora la directory node_modules
+node_modules/
+
+# Ignora i file generati da IDE o editor di testo
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Ignora i file di log
+*.log
+
+# Ignora i file di configurazione specifici dell'ambiente
+.env
+.env.local
+.env.*.local
+
+# Ignora i file di build e output compilati
+/build/
+/dist/
+
+# Ignora i file generati da strumenti di test
+/coverage/
+
+# Ignora i file temporanei
+*.tmp
+*.temp
