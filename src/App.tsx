@@ -14,10 +14,13 @@ export default function App() {
   useEffect(() => {
     if(sideBarEnabled) {
         setSideBarClass("transform -translate-x-50");
+        document.body.style.overflow = "hidden";
         setSidebarChange(true);
     }
-    else if(!sideBarEnabled && sidebarChange)
+    else if(!sideBarEnabled && sidebarChange) {
+      document.body.style.overflow = "visible";
       setSideBarClass("transform translate-x-full");
+    }
 
 }, [sideBarEnabled, sidebarChange]);
 

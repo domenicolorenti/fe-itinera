@@ -37,7 +37,7 @@ const AppBar = (props: any) => {
    }
 
   return (
-    <div className="relative w-max bg-white ">
+    <div className="relative w-full bg-white ">
       <img className="absolute left-0 ml-5 h-16" src={require("../../res/logo.png")} alt=""/>
       <div className="flex h-16 flex-row justify-end">
         {(

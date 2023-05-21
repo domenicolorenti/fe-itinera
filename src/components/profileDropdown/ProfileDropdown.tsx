@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { HiOutlineUser } from 'react-icons/hi';
@@ -39,35 +38,34 @@ export default function ProfileDropdown(props: any) {
     else {
         return (
             <div className="flex bg-gray-800 my-2 ml-8 mr-4 content-center rounded-xl">
-            <Button
-                disableRipple
-                className=" focus:outline-none"
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-            >
-                <HiOutlineUser className="text-2xl text-white"/>
-            </Button>
-            <Menu
-                PaperProps={{ style: { borderRadius: '12px', marginTop: '4px' } }}
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                'aria-labelledby': 'basic-button',
-                }}
-            >
-                <h1 className="text-xl m-4 px-4 text-gray-600 border-b">Private Area</h1>
+                <button
+                    className="mx-3 focus:outline-none"
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                >
+                    <HiOutlineUser className="text-2xl text-white"/>
+                </button>
+                <Menu
+                    PaperProps={{ style: { borderRadius: '12px', marginTop: '4px' } }}
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <h1 className="text-xl m-4 px-4 text-gray-600 border-b">Private Area</h1>
 
-                {DropdownData.map((item, val) => (
-                    <Link to={item.link} key={val} onClick={()=>{setItemActive(item.title)}}>
-                        <DropdownItem onClick={handleClose} key={val} link={item.link} text={item.title} />
-                    </Link>
-                ))}
-            </Menu>
+                    {DropdownData.map((item, val) => (
+                        <Link to={item.link} key={val} onClick={()=>{setItemActive(item.title)}}>
+                            <DropdownItem onClick={handleClose} key={val} link={item.link} text={item.title} />
+                        </Link>
+                    ))}
+                </Menu>
             </div>
         );
     }
