@@ -16,7 +16,7 @@ export default function SearchDropdown(props: any) {
     const menuStyle = {
         padding: '8px',
         borderRadius: '12px',
-        width: '300px',
+        width: 'auto',
         overflow: 'hidden',
         transition: 'max-height 0.2s ease',
       };
