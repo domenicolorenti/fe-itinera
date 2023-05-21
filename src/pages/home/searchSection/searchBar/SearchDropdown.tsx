@@ -25,7 +25,7 @@ export default function SearchDropdown(props: any) {
         <div className="flex flex-row w-full rounded-xl">
             <div className="flex flex-col my-auto mx-3">
                 <button
-                    className="focus:outline-none mx-2"
+                    className="focus:outline-none mx-1"
                     id="basic-button"
                     aria-controls={open ? 'basic-menu' : undefined}
                     aria-haspopup="true"
@@ -34,7 +34,7 @@ export default function SearchDropdown(props: any) {
                 >
                     <h3 className="flex flex-row text-gray-800">{props.title}<HiChevronDown className="mx-1 my-auto"/></h3>
                 </button>
-                <h3 className="text-sm text-gray-600">{props.value}</h3>
+                <h3 className="text-xs text-gray-600">{props.value}</h3>
             </div>
             <Menu
                 PaperProps={{ style: menuStyle }}

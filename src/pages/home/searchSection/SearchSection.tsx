@@ -1,13 +1,18 @@
-import { Autocomplete, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
+import { useState } from 'react'
 import LocationSelect from './searchBar/LocationSelect'
 import { HiSearch } from 'react-icons/hi'
-import DataPicker from './searchBar/DataSelect'
 import PriceSelect from './searchBar/PriceSelect'
 import SearchDropdown from './searchBar/SearchDropdown'
+import DataSelect from './searchBar/DataSelect'
+import dayjs, { Dayjs } from 'dayjs'
 
 const SearchBar = (props: any) => {
-    const [price, setPrice] = React.useState<number[]>([20, 37]);
+    const [price, setPrice] = useState<number[]>([20, 37]);
+    const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
+
+    const dateToString = () => {
+        return "" + date?.date() + "/" + date?.month() + "/" + date?.year();
+    }
 
     const priceToString = () => {
         return "€" + price[0] + " - " + "€" + price[1];
@@ -17,8 +22,8 @@ const SearchBar = (props: any) => {
         <div id="search" className={"flex flex-col lg:flex-row shadow-2xl border px-4 lg:px-2 my-5 bg-white border-gray-200 rounded-xl  " + props.class}>
             <LocationSelect />
             <div className="flex">
-                <div className="flex mx-2">
-                    <SearchDropdown title="Data" value={priceToString()} obj={<DataPicker />} />
+                <div className="flex mx-2 ">
+                    <SearchDropdown title="Data" value={dateToString()} obj={<DataSelect date={date} setDate={setDate}/>} />
                     <SearchDropdown title="Price" value={priceToString()} obj={<PriceSelect price={price} setPrice={setPrice}/>} />
                 </div>
                 <button className="bg-gray-800 rounded-xl shadow p-3 my-2 ml-auto focus:outline-none">
