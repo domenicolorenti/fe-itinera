@@ -23,7 +23,7 @@ const PriceSelect = (props: any) => {
 
   return (
     <ThemeProvider theme={theme}>
-        <Box className="flex  flex-col mx-4">
+        <Box className="flex flex-col mx-4">
             <h3 className="text-xl text-center text-gray-600 m-4 border-b">Select Price range</h3>
             <Slider
                 getAriaLabel={() => 'Price range'}

@@ -26,14 +26,14 @@ export default function App() {
 
   return (
     <BrowserRouter>
-    <div id="main-div" className="relative h-full bg-white">
-      <AppBar userLogged={userLogged} sidebarEnabled={sideBarEnabled} setSidebarEnabled={setSideBarEnabled}/>
-      <SideBar userLogged={userLogged} setSidebarEnabled={setSideBarEnabled} class={sideBarClass}/>
-      <div id="content-div" className="relative h-full">
-        <AppRoutes userLogged={userLogged} />
+      <div id="main-div" className="bg-white">
+        <AppBar userLogged={userLogged} sidebarEnabled={sideBarEnabled} setSidebarEnabled={setSideBarEnabled}/>
+        <SideBar userLogged={userLogged} setSidebarEnabled={setSideBarEnabled} class={sideBarClass}/>
+        <div id="content-div" className="">
+          <AppRoutes userLogged={userLogged} />
 
+        </div>
       </div>
-    </div>
     </BrowserRouter>
   );
 }

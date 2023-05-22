@@ -4,7 +4,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { ThemeProvider } from 'styled-components';
 import { createTheme } from '@mui/material';
-import dayjs, { Dayjs } from 'dayjs';
+import { Dayjs } from 'dayjs';
 
 const theme = createTheme({
   palette: {
