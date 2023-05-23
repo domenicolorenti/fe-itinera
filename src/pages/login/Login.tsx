@@ -24,18 +24,7 @@ const Login = (props: any) => {
 
   const navigate = useNavigate();
 
-  const loginLink = "http://localhost:8080/login";
 
-  const loginOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'username': username,
-      'password': password,
-    }),
-  };
 
   function parseResult(res: any) {
     if (res.status === 200) {
@@ -56,13 +45,38 @@ const Login = (props: any) => {
     return true;
   }
 
-  const doLogin = () => {
-    if (!checkConstraints())
-      return;
+  const loginLink = "http://localhost:8080/login";
 
-    console.log("sto loggando!");
-    fetch(loginLink, loginOptions)
-      .then((res) => parseResult(res));
+  // const loginOptions = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     'username': username,
+  //     'password': password,
+  //   }),
+  // };
+
+  const doLogin = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    var raw = JSON.stringify({
+      "username": "domenico",
+      "password": "domenico"
+    });
+    
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+    };
+    
+    fetch("http://localhost:8080/login", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   }
 
 
