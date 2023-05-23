@@ -24,7 +24,7 @@ const Login = (props: any) => {
 
   const navigate = useNavigate();
 
-  const loginLink = `http://localhost:8080/login`;
+  const loginLink = "http://localhost:8080/login";
 
   const loginOptions = {
     method: 'POST',
@@ -40,21 +40,17 @@ const Login = (props: any) => {
   function parseResult(res: any) {
     if (res.status === 200) {
       res.json().then((result: any) => props.setAccessToken(result['key']));
-      props.showResultPopup("Login successfull !");
-      navigate("/");
     }
     else {
       res.json().then((result: any) => {
-        setErrorType("Invalid");
-        showError();
+        console.log("invalid")
       })
     }
   }
 
   function checkConstraints() {
     if (username === "" || password === "") {
-      setErrorType("Empty");
-      showError();
+      console.log("empty");
       return false;
     }
     return true;
@@ -74,7 +70,7 @@ const Login = (props: any) => {
     backgroundImage: `url(${loginImage})`,
     backgroundSize: 'cover',
   };
-  const myStyle: string = "w-full h-12 my-2 p-2 border-2 rounded-xl focus:outline-none focus:border-4 focus:border-gray-800";
+  const myStyle: string = "w-full h-12 my-2 p-2 border-2 text-md rounded-xl focus:outline-none focus:border-4 focus:border-gray-800";
 
   return (
     <div className="flex h-screen justify-center items-center">
@@ -84,12 +80,13 @@ const Login = (props: any) => {
           <div className="flex flex-col xl:w-1/2">
             <img className="" src={require("../../res/logo.png")} alt="" />
             <h1 className="text-gray-800 text-2xl mx-4">Sign In</h1>
-            <form className="flex flex-col my-2 p-2 w-fullrounded-xl">
+            <form className="flex flex-col my-2 p-4 w-fullrounded-xl">
               <input type="text" placeholder="Username" className={myStyle} onChange={(ev) => setUsername(ev.target.value)}/>
               <input type="password" placeholder="Password" className={myStyle} onChange={(ev) => setPassword(ev.target.value)}></input>
               <a href="" className="text-gray-600 text-right text-sm">Forgot your password?</a>
-              <input type="submit" value="Sign In" onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3" />
+              
             </form>
+            <input type="submit" value="Sign In" onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3" />
           </div>
         </div>
       </div>
@@ -98,11 +95,4 @@ const Login = (props: any) => {
 };
 
 export default Login;
-function setErrorType(arg0: string) {
-  throw new Error('Function not implemented.');
-}
-
-function showError() {
-  throw new Error('Function not implemented.');
-}
 
