@@ -15,14 +15,17 @@ export default function App() {
   const checkLoginLink = "http://localhost:8080/checkLogin";
 
   const checkOptions = {
-    method: "GET",
-    Headers: {
-      "Content-Type": "application/json",
-      "Authorization": accessToken
+    method: 'GET',
+    headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Authorization': String(accessToken)
     }
-  }
+};
+
   useEffect(() => {
-    if(accessToken==="" || accessToken===null)
+    console.log("token: " + accessToken);
+    if(accessToken==="")
       setUserLogged(false);
     else {
       console.log("check for login")
@@ -34,8 +37,10 @@ export default function App() {
   const parseResult = (res: Response) => {
     if(res.status === 200) {
       res.json().then(() => setUserLogged(true))
+      saveToken(accessToken)
     }
     else if(res.status === 5000 && accessToken != ""){
+      console.log("Invalid Credentials");
       setUserLogged(false);
       saveToken("");
     }
@@ -46,9 +51,9 @@ export default function App() {
     }
   }
 
-  const saveToken = (token: string) => {
-    localStorage.setItem("Auth Token", token);
-    setAccessToken("")
+  const saveToken = (token: string | null) => {
+    localStorage.setItem("Auth Token", token ?? '');
+    setAccessToken(token);
   }
 
 
