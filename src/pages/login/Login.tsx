@@ -1,37 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import loginImage from '../../res/login.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 
-const Form = () => {
-  const myStyle: string = "w-full h-12 my-2 p-2 border-2 rounded-xl focus:outline-none focus:border-4 focus:border-gray-800";
-
-  return (
-    <form className="flex flex-col my-2 p-2 w-fullrounded-xl">
-      <input type="text" placeholder="Username" className={myStyle} />
-      <input type="password" placeholder="Password" className={myStyle}></input>
-      <a href="" className="text-gray-600 text-right text-sm">Forgot your password?</a>
-      <input type="submit" value="Sign In" className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3" />
-    </form>
-  )
-}
-
-
 const Login = (props: any) => {
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const loginLink = "http://localhost:8080/login";
 
+  const inputClass = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
+  const [inputStyle, setInputStyle] = useState(inputClass);
+  const [errorLabel, setErrorLabel] = useState(false);
 
+  const showErrorLabel = () => {
+    setInputStyle("w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none");
+    setErrorLabel(true);
+    setTimeout(() => { setInputStyle(inputClass); setErrorLabel(false) }, 5000);
+  }
 
   function parseResult(res: any) {
     if (res.status === 200) {
       res.json().then((result: any) => props.setAccessToken(result['key']));
+      navigate("/");
+    }
+    else if (res.status === 401) {
+      res.json().then(() => {
+        showErrorLabel();
+      });
     }
     else {
-      res.json().then((result: any) => {
+      res.json().then(() => {
         console.log("invalid")
       })
     }
@@ -39,43 +39,30 @@ const Login = (props: any) => {
 
   function checkConstraints() {
     if (username === "" || password === "") {
-      console.log("empty");
+      showErrorLabel();
       return false;
     }
     return true;
   }
 
-  const loginLink = "http://localhost:8080/login";
 
-  // const loginOptions = {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     'username': username,
-  //     'password': password,
-  //   }),
-  // };
+  const loginOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'username': username,
+      'password': password,
+    }),
+  };
 
   const doLogin = () => {
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    
-    var raw = JSON.stringify({
-      "username": "domenico",
-      "password": "domenico"
-    });
-    
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-    };
-    
-    fetch("http://localhost:8080/login", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
+    if (!checkConstraints())
+      return;
+
+    fetch(loginLink, loginOptions)
+      .then((res) => parseResult(res))
       .catch(error => console.log('error', error));
   }
 
@@ -84,7 +71,6 @@ const Login = (props: any) => {
     backgroundImage: `url(${loginImage})`,
     backgroundSize: 'cover',
   };
-  const myStyle: string = "w-full h-12 my-2 p-2 border-2 text-md rounded-xl focus:outline-none focus:border-4 focus:border-gray-800";
 
   return (
     <div className="flex h-screen justify-center items-center">
@@ -94,13 +80,13 @@ const Login = (props: any) => {
           <div className="flex flex-col xl:w-1/2">
             <img className="" src={require("../../res/logo.png")} alt="" />
             <h1 className="text-gray-800 text-2xl mx-4">Sign In</h1>
-            <form className="flex flex-col my-2 p-4 w-fullrounded-xl">
-              <input type="text" placeholder="Username" className={myStyle} onChange={(ev) => setUsername(ev.target.value)}/>
-              <input type="password" placeholder="Password" className={myStyle} onChange={(ev) => setPassword(ev.target.value)}></input>
+            <div id="form" className="flex flex-col p-4 w-fullrounded-xl">
+              {(errorLabel && <label className="text-red-600 text-center">Invalid Username and Password</label>)}
+              <input type="text" placeholder="Username" className={inputStyle} onChange={(ev) => setUsername(ev.target.value)} />
+              <input type="password" placeholder="Password" className={inputStyle} onChange={(ev) => setPassword(ev.target.value)}></input>
               <a href="" className="text-gray-600 text-right text-sm">Forgot your password?</a>
-              
-            </form>
-            <input type="submit" value="Sign In" onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3" />
+              <button onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3">Sign In</button>
+            </div>
           </div>
         </div>
       </div>

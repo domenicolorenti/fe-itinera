@@ -7,7 +7,7 @@ const AppRoutes = (props: any) => {
     return (
         <Routes>
             <Route path="/" element={<Home accessToken={props.accessToken}/>} />
-            <Route path="/login" element={<Login />}/>
+            <Route path="/login" element={<Login setAccessToken={props.setAccessToken}/>}/>
         </Routes>
     )
 }
