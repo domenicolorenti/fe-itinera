@@ -12,7 +12,8 @@ export default function App() {
   const [sidebarChange, setSidebarChange] = useState(false);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("Auth Token"));
 
-  const checkLoginLink = "http://localhost:8080/checkLogin";
+  const address = "172.20.10.4";
+  const checkLoginLink = `http://${address}:8080/checkLogin`;
 
   const checkOptions = {
     method: 'GET',
@@ -73,11 +74,25 @@ export default function App() {
   return (
     <BrowserRouter>
       <div id="main-div" className="bg-white">
-        <AppBar userLogged={userLogged} sidebarEnabled={sideBarEnabled} setSidebarEnabled={setSideBarEnabled} />
-        <SideBar userLogged={userLogged} setSidebarEnabled={setSideBarEnabled} class={sideBarClass} />
-        <div id="content-div" className="">
-          <AppRoutes userLogged={userLogged} accessToken={accessToken} setAccessToken={setAccessToken}/>
-
+        <AppBar 
+          userLogged={userLogged} 
+          sidebarEnabled={sideBarEnabled} 
+          setSidebarEnabled={setSideBarEnabled} 
+          setAccessToken={setAccessToken}
+        />
+        <SideBar 
+          userLogged={userLogged} 
+          setSidebarEnabled={setSideBarEnabled} 
+          class={sideBarClass} 
+        />
+        <div id="content-div" 
+          className=""
+        >
+          <AppRoutes 
+            userLogged={userLogged} 
+            accessToken={accessToken} 
+            setAccessToken={setAccessToken}
+          />
         </div>
       </div>
     </BrowserRouter>

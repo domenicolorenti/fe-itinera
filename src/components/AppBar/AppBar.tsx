@@ -47,7 +47,7 @@ const AppBar = (props: any) => {
                     <MenuItem key={val} link={item.link} text={item.title} />
                 </Link>
             ))}
-            <ProfileDropdown userLogged={props.userLogged}/>
+            <ProfileDropdown userLogged={props.userLogged} setAccessToken={props.setAccessToken}/>
             <button className="px-3 py-3 mx-2 my-2 rounded-lg focus:outline-none sm:hidden"
                 onClick={() => {props.setSidebarEnabled(!props.sidebarEnabled)}}>
               {MenuIcon()}

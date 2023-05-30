@@ -11,7 +11,7 @@ const DropdownItem = (props: any) => {
     const isActive = window.location.pathname === props.link;
 
     return (
-        <MenuItem disableRipple style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>{props.text}</MenuItem>
+        <MenuItem disableRipple onClick={props.onClick} style={{ textAlign: 'center', display: 'flex', justifyContent: 'center' }}>{props.text}</MenuItem>
     )
 }
 
@@ -24,9 +24,15 @@ export default function ProfileDropdown(props: any) {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
+    
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const logOut = () => {
+        handleClose();
+        props.setAccessToken("");
+    }
 
     if(!props.userLogged) {
         return (
@@ -65,6 +71,7 @@ export default function ProfileDropdown(props: any) {
                             <DropdownItem onClick={handleClose} key={val} link={item.link} text={item.title} />
                         </Link>
                     ))}
+                    <DropdownItem onClick={logOut} text="Log Out"/>
                 </Menu>
             </div>
         );
