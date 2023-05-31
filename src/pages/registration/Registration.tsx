@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
 
-const address = "172.20.10.4";
+const address = "localhost";
 const link = `http://${address}:8080/registration`;
 
 const Registration = (props: any) => {
@@ -109,7 +109,7 @@ const Registration = (props: any) => {
 
     return (
         <div className="flex h-screen justify-center items-center">
-            <div className=" fixed flex flex-row w-3/4 mb-24 bg-white rounded-xl md:shadow-2xl " >
+            <div className="flex flex-row w-3/4 mb-24 bg-white rounded-xl md:shadow-2xl " >
                 <div className="hidden md:block w-1/2 rounded-l-xl" style={divStyle}></div>
                 <div className="flex md:w-1/2 justify-center">
                     {( !success &&
@@ -123,8 +123,8 @@ const Registration = (props: any) => {
                                 <input type="password" placeholder="Password" className={`${getFieldsStyle()}`} onChange={(ev) => setPassword(ev.target.value)} />
                                 {(passwordError && <label className="text-red-600 text-center">Password not match</label>)}
                                 <input id="retype" type="password" placeholder="Retype Password" className={`${getFieldsStyle()}`} onChange={(ev) => { setRetypePassword(ev.target.value) }} />
-                                <a href="" className="text-gray-600 text-right text-sm">Forgot your password?</a>
                                 <button onClick={doRegistration} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3 focus:outline-none">Sign Up</button>
+                                <label className="text-center">Already have an account? Click <Link to="/login" className="text-blue-600">here.</Link></label>
                             </div>
                         </div>
                     )}

@@ -12,7 +12,7 @@ export default function App() {
   const [sidebarChange, setSidebarChange] = useState(false);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("Auth Token"));
 
-  const address = "172.20.10.4";
+  const address = "localhost";
   const checkLoginLink = `http://${address}:8080/checkLogin`;
 
   const checkOptions = {
