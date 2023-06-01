@@ -81,7 +81,6 @@ const Login = (props: any) => {
               {(errorLabel && <label className="text-red-600 text-center">Invalid Username and Password</label>)}
               <input type="text" placeholder="Username" className={`${getFieldsStyle()}`} onChange={(ev) => setUsername(ev.target.value)} />
               <input type="password" placeholder="Password" className={`${getFieldsStyle()}`} onChange={(ev) => setPassword(ev.target.value)}></input>
-              <a href="" className="text-gray-600 text-right text-sm">Forgot your password?</a>
               <button onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3 focus:outline-none">Sign In</button>
               <label className="text-center">Don't have an account yet? Click <Link to="/registrationType" className="text-blue-600">here.</Link></label>
             </div>

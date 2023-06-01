@@ -1,10 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import loginImage from '../../res/login.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import { APIHandler } from '../../utils/APIHandler';
+import { Alert, Snackbar } from '@mui/material';
 
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
+
+const MyAlert = (props: any) => {
+    return (
+        <Snackbar
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            open={props.open}
+            autoHideDuration={6000}
+        >
+            <Alert severity="error" sx={{ width: '100%' }}>
+                User Already Exist!
+            </Alert>
+        </Snackbar>
+    );
+}
 
 const Registration = (props: any) => {
     const api = new APIHandler();
@@ -16,6 +31,7 @@ const Registration = (props: any) => {
 
     const navigate = useNavigate();
 
+    const [alertOpen, setAlertOpen] = useState(false);
     const [success, setSuccess] = useState(false);
     const [errorLabel, setErrorLabel] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
@@ -23,6 +39,11 @@ const Registration = (props: any) => {
     const showErrorLabel = () => {
         setErrorLabel(true);
         setTimeout(() => { setErrorLabel(false) }, 5000);
+    }
+
+    const showAlert = () => {
+        setAlertOpen(true);
+        setTimeout(() => { setAlertOpen(false) }, 6000);
     }
 
     const showPasswordError = () => {
@@ -44,7 +65,7 @@ const Registration = (props: any) => {
             });
         }
         else if (res.status === 409) {
-            alert("User already exists!!");
+            showAlert();
         }
         else {
             res.json().then(() => {
@@ -58,7 +79,7 @@ const Registration = (props: any) => {
             showErrorLabel();
             return false;
         }
-        if (password != retypePassword) {
+        if (password !== retypePassword) {
             showPasswordError()
             return false;
         }
@@ -103,6 +124,7 @@ const Registration = (props: any) => {
             <div className="flex flex-row w-3/4 mb-24 bg-white rounded-xl md:shadow-2xl " >
                 <div className="hidden md:block w-1/2 rounded-l-xl" style={divStyle}></div>
                 <div className="flex md:w-1/2 justify-center">
+                    <MyAlert open={alertOpen}/>
                     {(!success &&
                         <div className="flex flex-col lg:w-3/4 xl:w-2/3 2xl:w-1/2">
                             <img className="" src={require("../../res/logo.png")} alt="" />

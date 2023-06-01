@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import SideBar from './components/SideBar/SideBar';
@@ -15,10 +15,15 @@ export default function App() {
 
   const api = new APIHandler();
 
-  const checkLoginHeaders = {
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Authorization': String(accessToken)
+  const doCheck = () => {
+    const checkLoginHeaders = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': String(accessToken)
+    }
+
+    api.getWithHeaders("/checkLogin", checkLoginHeaders)
+        .then(res => parseResult(res));
   }
 
   useEffect(() => {
@@ -28,8 +33,7 @@ export default function App() {
       saveToken("");
     }
     else {
-      api.getWithHeaders("/checkLogin", checkLoginHeaders)
-        .then(res => parseResult(res));
+      doCheck();
     }
   }, [accessToken])
 
@@ -38,7 +42,7 @@ export default function App() {
       res.json().then(() => setUserLogged(true))
       saveToken(accessToken)
     }
-    else if (res.status === 5000 && accessToken != "") {
+    else if (res.status === 5000 && accessToken !== "") {
       console.log("Invalid Credentials");
       setUserLogged(false);
       saveToken("");
