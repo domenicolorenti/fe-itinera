@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import SideBar from './components/SideBar/SideBar';
 import AppRoutes from './components/AppRoutes';
+import { APIHandler } from './utils/APIHandler';
 
 export default function App() {
 
@@ -12,35 +13,32 @@ export default function App() {
   const [sidebarChange, setSidebarChange] = useState(false);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("Auth Token"));
 
-  const address = "localhost";
-  const checkLoginLink = `http://${address}:8080/checkLogin`;
+  const api = new APIHandler();
 
-  const checkOptions = {
-    method: 'GET',
-    headers: { 
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : '*',
-        'Authorization': String(accessToken)
-    }
-};
+  const checkLoginHeaders = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Authorization': String(accessToken)
+  }
 
   useEffect(() => {
     console.log("token: " + accessToken);
-    if(accessToken==="")
+    if (accessToken === "") {
       setUserLogged(false);
+      saveToken("");
+    }
     else {
-      console.log("check for login")
-      fetch(checkLoginLink, checkOptions)
+      api.getWithHeaders("/checkLogin", checkLoginHeaders)
         .then(res => parseResult(res));
     }
-  },[accessToken])
+  }, [accessToken])
 
   const parseResult = (res: Response) => {
-    if(res.status === 200) {
+    if (res.status === 200) {
       res.json().then(() => setUserLogged(true))
       saveToken(accessToken)
     }
-    else if(res.status === 5000 && accessToken != ""){
+    else if (res.status === 5000 && accessToken != "") {
       console.log("Invalid Credentials");
       setUserLogged(false);
       saveToken("");
@@ -74,23 +72,23 @@ export default function App() {
   return (
     <BrowserRouter>
       <div id="main-div" className="bg-white">
-        <AppBar 
-          userLogged={userLogged} 
-          sidebarEnabled={sideBarEnabled} 
-          setSidebarEnabled={setSideBarEnabled} 
+        <AppBar
+          userLogged={userLogged}
+          sidebarEnabled={sideBarEnabled}
+          setSidebarEnabled={setSideBarEnabled}
           setAccessToken={setAccessToken}
         />
-        <SideBar 
-          userLogged={userLogged} 
-          setSidebarEnabled={setSideBarEnabled} 
-          class={sideBarClass} 
+        <SideBar
+          userLogged={userLogged}
+          setSidebarEnabled={setSideBarEnabled}
+          class={sideBarClass}
         />
-        <div id="content-div" 
+        <div id="content-div"
           className=""
         >
-          <AppRoutes 
-            userLogged={userLogged} 
-            accessToken={accessToken} 
+          <AppRoutes
+            userLogged={userLogged}
+            accessToken={accessToken}
             setAccessToken={setAccessToken}
           />
         </div>

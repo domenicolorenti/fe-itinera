@@ -1,30 +1,30 @@
-import { useEffect, useState } from 'react';
-import loginImage from '../../res/login.jpeg';
+
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { APIHandler } from '../../utils/APIHandler';
+import loginImage from '../../res/login.jpeg';
 
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
 
-const address = "localhost";
-const loginLink = `http://${address}:8080/login`;
-
 const Login = (props: any) => {
+  const api = new APIHandler();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const inputClass = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
   const [errorLabel, setErrorLabel] = useState(false);
 
   const showErrorLabel = () => {
     setErrorLabel(true);
-    setTimeout(() => {setErrorLabel(false) }, 5000);
+    setTimeout(() => { setErrorLabel(false) }, 5000);
   }
 
   const getFieldsStyle = (): string => {
     return errorLabel ? errorFieldsStyle : defaultFieldsStyle;
-}
+  }
 
   function parseResult(res: any) {
     if (res.status === 200) {
@@ -51,27 +51,18 @@ const Login = (props: any) => {
     return true;
   }
 
-
-  const loginOptions = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'username': username,
-      'password': password,
-    }),
-  };
-
   const doLogin = () => {
     if (!checkConstraints())
       return;
 
-    fetch(loginLink, loginOptions)
-      .then((res) => parseResult(res))
-      .catch(error => console.log('error', error));
-  }
+    const requestBody = {
+      'username': username,
+      'password': password,
+    };
 
+    api.post("/login", requestBody)
+      .then((res) => parseResult(res));
+  }
 
   const divStyle = {
     backgroundImage: `url(${loginImage})`,

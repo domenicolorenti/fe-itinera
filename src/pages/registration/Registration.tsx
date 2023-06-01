@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import loginImage from '../../res/login.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { APIHandler } from '../../utils/APIHandler';
 
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
 
-const address = "localhost";
-const link = `http://${address}:8080/registration`;
-
 const Registration = (props: any) => {
+    const api = new APIHandler();
+
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -66,26 +65,18 @@ const Registration = (props: any) => {
         return true;
     }
 
-
-    const options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            'username': username,
-            'password': password,
-            'email': email,
-        }),
-    };
-
     const doRegistration = () => {
         if (!checkConstraints())
             return;
 
-        fetch(link, options)
-            .then((res) => parseResult(res))
-            .catch(error => console.log('error', error));
+        const requestBody = {
+            'username': username,
+            'password': password,
+            'email': email,
+        };
+
+        api.post("/registration", requestBody)
+            .then((res) => parseResult(res));
     }
 
 
@@ -112,7 +103,7 @@ const Registration = (props: any) => {
             <div className="flex flex-row w-3/4 mb-24 bg-white rounded-xl md:shadow-2xl " >
                 <div className="hidden md:block w-1/2 rounded-l-xl" style={divStyle}></div>
                 <div className="flex md:w-1/2 justify-center">
-                    {( !success &&
+                    {(!success &&
                         <div className="flex flex-col lg:w-3/4 xl:w-2/3 2xl:w-1/2">
                             <img className="" src={require("../../res/logo.png")} alt="" />
                             <h1 className="text-gray-800 text-2xl mx-4">Sign Up</h1>
@@ -128,7 +119,7 @@ const Registration = (props: any) => {
                             </div>
                         </div>
                     )}
-                    {( success && <Welcome/> )}
+                    {(success && <Welcome />)}
                 </div>
             </div>
         </div>
