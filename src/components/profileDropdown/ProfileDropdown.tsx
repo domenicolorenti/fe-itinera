@@ -3,7 +3,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { HiOutlineUser } from 'react-icons/hi';
 import { DropdownData } from './DropdownData';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import 'tailwindcss/tailwind.css';
 
@@ -21,6 +21,8 @@ export default function ProfileDropdown(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
+    const navigate = useNavigate();
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -34,9 +36,16 @@ export default function ProfileDropdown(props: any) {
         props.setAccessToken("");
     }
 
+    const openProfile = () => {
+        if(props.userLogged.name)
+            navigate("/dashboard");
+        else
+            navigate("/profile");
+    }
+
     if(!props.userLogged) {
         return (
-            <Link to="/Login" onClick={()=>{setItemActive("Login")}}>
+            <Link to="/login" onClick={()=>{setItemActive("Login")}}>
                 <button className="p-3 ml-8 mr-4 my-2 text-white text-lg bg-gray-800 rounded-xl focus:outline-none">Sign In</button>
             </Link>
         )
@@ -66,11 +75,7 @@ export default function ProfileDropdown(props: any) {
                 >
                     <h1 className="text-xl m-4 px-4 text-gray-600 border-b">Private Area</h1>
 
-                    {DropdownData.map((item, val) => (
-                        <Link to={item.link} key={val} onClick={()=>{setItemActive(item.title)}}>
-                            <DropdownItem onClick={handleClose} key={val} link={item.link} text={item.title} />
-                        </Link>
-                    ))}
+                    <DropdownItem onClick={openProfile} text="Profile"/>
                     <DropdownItem onClick={logOut} text="Log Out"/>
                 </Menu>
             </div>

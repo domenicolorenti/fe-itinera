@@ -5,11 +5,24 @@ import SideBar from './components/SideBar/SideBar';
 import AppRoutes from './components/AppRoutes';
 import { APIHandler } from './utils/APIHandler';
 
+interface User {
+  username: string,
+  email: string
+}
+
+interface Business {
+  name: string,
+  email: string,
+  address: string,
+  city: string,
+  owner: string
+}
+
 export default function App() {
 
   const [sideBarClass, setSideBarClass] = useState("transform translate-x-full");
   const [sideBarEnabled, setSideBarEnabled] = useState(false);
-  const [userLogged, setUserLogged] = useState(false);
+  const [userLogged, setUserLogged] = useState<User | Business | null>(null);
   const [sidebarChange, setSidebarChange] = useState(false);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("Auth Token"));
 
@@ -29,7 +42,7 @@ export default function App() {
   useEffect(() => {
     console.log("token: " + accessToken);
     if (accessToken === "") {
-      setUserLogged(false);
+      setUserLogged(null);
       saveToken("");
     }
     else {
@@ -39,17 +52,17 @@ export default function App() {
 
   const parseResult = (res: Response) => {
     if (res.status === 200) {
-      res.json().then(() => setUserLogged(true))
+      res.json().then(result => setUserLogged(result["user"]));
       saveToken(accessToken)
     }
     else if (res.status === 5000 && accessToken !== "") {
       console.log("Invalid Credentials");
-      setUserLogged(false);
+      setUserLogged(null);
       saveToken("");
     }
     else {
       console.log("Error while Login");
-      setUserLogged(false);
+      setUserLogged(null);
       saveToken("");
     }
   }

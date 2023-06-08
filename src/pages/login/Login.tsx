@@ -1,17 +1,38 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { APIHandler } from '../../utils/APIHandler';
-import loginImage from '../../res/login.jpeg';
+import Template from './Template';
+import { Switch, ThemeProvider, createTheme } from '@mui/material';
 
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
+
+const MySwitch = (props: any) => {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#009688",
+      },
+    },
+  });
+
+  return (
+    <label className="text-center text-lg">
+      Business account
+      <ThemeProvider theme={theme}>
+        <Switch checked={props.business} className='ml-4' color="primary" onChange={ev => props.setBusiness(ev.target.checked)}/>
+      </ThemeProvider>
+    </label>
+  )
+}
 
 const Login = (props: any) => {
   const api = new APIHandler();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [business, setBusiness] = useState(false);
 
   const navigate = useNavigate();
 
@@ -60,34 +81,35 @@ const Login = (props: any) => {
       'password': password,
     };
 
-    api.post("/login", requestBody)
-      .then((res) => parseResult(res));
+    if (business) {
+      api.post("/businessLogin", requestBody)
+        .then((res) => parseResult(res));
+    }
+    else {
+      api.post("/login", requestBody)
+        .then((res) => parseResult(res));
+    }
   }
 
-  const divStyle = {
-    backgroundImage: `url(${loginImage})`,
-    backgroundSize: 'cover',
-  };
-
-  return (
-    <div className="flex h-screen justify-center items-center">
-      <div className="flex flex-row w-3/4 mb-24 bg-white rounded-xl md:shadow-2xl " >
-        <div className="hidden md:block w-1/2 rounded-l-xl" style={divStyle}></div>
-        <div className="flex md:w-1/2 justify-center">
-          <div className="flex flex-col lg:w-5/6 xl:w-2/3 2xl:7:12 3xl:w-1/2">
-            <img className="" src={require("../../res/logo.png")} alt="" />
-            <h1 className="text-gray-800 text-2xl mx-4">Sign In</h1>
-            <div id="form" className="flex flex-col p-4">
-              {(errorLabel && <label className="text-red-600 text-center">Invalid Username and Password</label>)}
-              <input type="text" placeholder="Username" className={`${getFieldsStyle()}`} onChange={(ev) => setUsername(ev.target.value)} />
-              <input type="password" placeholder="Password" className={`${getFieldsStyle()}`} onChange={(ev) => setPassword(ev.target.value)}></input>
-              <button onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3 focus:outline-none">Sign In</button>
-              <label className="text-center">Don't have an account yet? Click <Link to="/registrationType" className="text-blue-600">here.</Link></label>
-            </div>
-          </div>
+  const LoginContent = () => {
+    return (
+      <div className="flex flex-col lg:w-5/6 xl:w-7/12 3xl:w-1/2">
+        <img className="" src={require("../../res/logo.png")} alt="" />
+        <h1 className="text-gray-800 text-2xl mx-4">Sign In</h1>
+        <div id="form" className="flex flex-col p-4">
+          <MySwitch business={business} setBusiness={setBusiness}/>
+          {(errorLabel && <label className="text-red-600 text-center">Invalid Username and Password</label>)}
+          <input type="text" placeholder="Username" className={`${getFieldsStyle()}`} onChange={(ev) => setUsername(ev.target.value)} />
+          <input type="password" placeholder="Password" className={`${getFieldsStyle()}`} onChange={(ev) => setPassword(ev.target.value)}></input>
+          <button onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3 focus:outline-none">Sign In</button>
+          <label className="text-center">Don't have an account yet? Click <Link to="/registrationType" className="text-blue-600">here.</Link></label>
         </div>
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <Template child={LoginContent()} />
   );
 };
 

@@ -5,10 +5,13 @@ import PriceSelect from './searchBar/PriceSelect'
 import SearchDropdown from './searchBar/SearchDropdown'
 import DataSelect from './searchBar/DataSelect'
 import dayjs, { Dayjs } from 'dayjs'
+import { useNavigate } from 'react-router-dom'
 
 const SearchBar = (props: any) => {
     const [price, setPrice] = useState<number[]>([20, 37]);
     const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
+
+    const navigate = useNavigate();
 
     const dateToString = () => {
         return "" + date?.date() + "/" + date?.month() + "/" + date?.year();
@@ -18,15 +21,22 @@ const SearchBar = (props: any) => {
         return "€" + price[0] + " - " + "€" + price[1];
     }
 
+    const doSearch = () => {
+        navigate("/search");
+    }
+
     return (
         <div id="search" className={"flex flex-col lg:flex-row shadow-2xl border px-4 lg:px-2 my-5 bg-white border-gray-200 rounded-xl  " + props.class}>
             <LocationSelect />
             <div className="flex">
                 <div className="flex mx-2 ">
-                    <SearchDropdown title="Data" value={dateToString()} obj={<DataSelect date={date} setDate={setDate}/>} />
-                    <SearchDropdown title="Price" value={priceToString()} obj={<PriceSelect price={price} setPrice={setPrice}/>} />
+                    <SearchDropdown title="Data" value={dateToString()} obj={<DataSelect date={date} setDate={setDate} />} />
+                    <SearchDropdown title="Price" value={priceToString()} obj={<PriceSelect price={price} setPrice={setPrice} />} />
                 </div>
-                <button className="bg-gray-800 rounded-xl shadow p-3 my-2 ml-auto focus:outline-none">
+                <button
+                    className="bg-gray-800 rounded-xl shadow p-3 my-2 ml-auto focus:outline-none"
+                    onClick={doSearch}
+                >
                     <HiSearch className="text-3xl text-white" />
                 </button>
             </div>

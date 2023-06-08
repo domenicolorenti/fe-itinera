@@ -1,5 +1,6 @@
 import { Autocomplete, TextField, ThemeProvider, createTheme } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { APIHandler } from "../../../../utils/APIHandler";
 
 const theme = createTheme({
   palette: {
@@ -10,6 +11,17 @@ const theme = createTheme({
 });
 
 export default function LocationSelect() {
+  const [cities, setCities] = useState([]);
+
+  const api = new APIHandler();
+
+  useEffect(() => {
+    fetch("http://192.168.1.151:8080/getCities")
+        .then((res) => res.json())
+        .then((result) => setCities(result),
+               (error) => console.log("Error fetching supported crypto "));
+}, []);
+
   return (
     <ThemeProvider theme={theme}>
       <Autocomplete
@@ -22,91 +34,3 @@ export default function LocationSelect() {
     </ThemeProvider>
   );
 }
-
-const cities = [
-  "Ancona",
-  "Andria",
-  "Arezzo",
-  "Bari",
-  "Bergamo",
-  "Bologna",
-  "Bolzano",
-  "Brescia",
-  "Brindisi",
-  "Cagliari",
-  "Caserta",
-  "Catania",
-  "Cesena",
-  "Como",
-  "Cosenza",
-  "Cremona",
-  "Crotone",
-  "Ferrara",
-  "Firenze",
-  "Foggia",
-  "Forlì",
-  "Frosinone",
-  "Genova",
-  "Gorizia",
-  "Grosseto",
-  "Imola",
-  "La Spezia",
-  "Lamezia Terme",
-  "Latina",
-  "Lecce",
-  "Livorno",
-  "Lucca",
-  "Macerata",
-  "Mantova",
-  "Massa",
-  "Matera",
-  "Messina",
-  "Milano",
-  "Modena",
-  "Monza",
-  "Napoli",
-  "Novara",
-  "Nuoro",
-  "Olbia",
-  "Oristano",
-  "Padova",
-  "Palermo",
-  "Parma",
-  "Perugia",
-  "Pesaro",
-  "Pescara",
-  "Piacenza",
-  "Pisa",
-  "Pistoia",
-  "Pordenone",
-  "Potenza",
-  "Prato",
-  "Ravenna",
-  "Reggio Calabria",
-  "Reggio Emilia",
-  "Rimini",
-  "Roma",
-  "Rovigo",
-  "Salerno",
-  "San Severo",
-  "Sassari",
-  "Savona",
-  "Siena",
-  "Siracusa",
-  "Taranto",
-  "Teramo",
-  "Terni",
-  "Torino",
-  "Trapani",
-  "Trento",
-  "Treviso",
-  "Trieste",
-  "Udine",
-  "Varese",
-  "Venezia",
-  "Verbania",
-  "Vercelli",
-  "Verona",
-  "Vicenza",
-  "Viterbo",
-];
