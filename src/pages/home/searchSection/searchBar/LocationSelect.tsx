@@ -16,7 +16,7 @@ export default function LocationSelect() {
   const api = new APIHandler();
 
   useEffect(() => {
-    fetch("http://192.168.1.151:8080/getCities")
+    fetch("http://192.168.1.151:8081/getCities")
         .then((res) => res.json())
         .then((result) => setCities(result),
                (error) => console.log("Error fetching supported crypto "));

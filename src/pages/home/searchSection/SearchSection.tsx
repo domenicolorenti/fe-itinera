@@ -50,7 +50,7 @@ const SearchSection = () => {
             <div className="relative grid grid-cols-2">
                 <div className="mr-2 lg:mr-24 xl:mr-40 2xl:mr-60">
                     <img className="" src={require("../../../res/search-title2.png")} alt="" />
-                    <SearchBar class="hidden lg:flex absolute md:w-8/12 " />
+                    <SearchBar class="hidden lg:flex absolute md:w-7/12 " />
                 </div>
                 <div className="">
                     <img className="" src={require("../../../res/search-image.png")} alt="" />
