@@ -1,6 +1,6 @@
 import { Autocomplete, TextField, ThemeProvider, createTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { APIHandler } from "../../../../utils/APIHandler";
+import { APIHandler } from "../../../../api/ProfileAPI";
 
 const theme = createTheme({
   palette: {
@@ -10,17 +10,17 @@ const theme = createTheme({
   }
 });
 
-export default function LocationSelect() {
+export default function LocationSelect(props: any) {
   const [cities, setCities] = useState([]);
 
-  const api = new APIHandler();
+  const api = new SearchAPI();
 
   useEffect(() => {
     fetch("http://192.168.1.151:8081/getCities")
-        .then((res) => res.json())
-        .then((result) => setCities(result),
-               (error) => console.log("Error fetching supported crypto "));
-}, []);
+      .then((res) => res.json())
+      .then((result) => setCities(result),
+        (error) => console.log("Error fetching supported crypto "));
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,6 +29,7 @@ export default function LocationSelect() {
         disablePortal
         id="combo-box-demo"
         options={cities}
+        onChange={(ev, value) => props.setLocation(value)}
         renderInput={(params) => <TextField {...params} label="Location" />}
       />
     </ThemeProvider>

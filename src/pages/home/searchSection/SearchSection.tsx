@@ -7,9 +7,22 @@ import DataSelect from './searchBar/DataSelect'
 import dayjs, { Dayjs } from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
+
+const dateAsMap = (date: Dayjs | null) => {
+    const map = new Map();
+
+    map.set('day', date?.date());
+    map.set('month', date?.month());
+    map.set('year', date?.year());
+
+    return map;
+}
+
 const SearchBar = (props: any) => {
-    const [price, setPrice] = useState<number[]>([20, 37]);
+    const [price, setPrice] = useState<number[]>([0, 100]);
     const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
+    const [location, setLocation] = useState("");
+    const mapDate = dateAsMap(date);
 
     const navigate = useNavigate();
 
@@ -22,12 +35,17 @@ const SearchBar = (props: any) => {
     }
 
     const doSearch = () => {
-        navigate("/search");
+        const searchData = {
+            price,
+            mapDate,
+            location,
+        };
+        navigate("/search", {state: searchData});
     }
 
     return (
         <div id="search" className={"flex flex-col lg:flex-row shadow-2xl border px-4 lg:px-2 my-5 bg-white border-gray-200 rounded-xl  " + props.class}>
-            <LocationSelect />
+            <LocationSelect setLocation={setLocation} />
             <div className="flex">
                 <div className="flex mx-2 ">
                     <SearchDropdown title="Data" value={dateToString()} obj={<DataSelect date={date} setDate={setDate} />} />

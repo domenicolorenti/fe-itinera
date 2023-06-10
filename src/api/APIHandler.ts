@@ -1,8 +1,18 @@
 
-class APIHandler {
+class ProfileAPI {
 
   private serverAddress: string = "192.168.1.151";
   private serverLink: string = `http://${this.serverAddress}:8080`
+  private static instance: ProfileAPI;
+
+  constructor() {
+    if (!ProfileAPI.instance) {
+      // Logica per creare l'istanza del singleton
+      ProfileAPI.instance = this;
+    }
+
+    return ProfileAPI.instance;
+  }
 
   async get(url: string) {
     try {
@@ -50,4 +60,4 @@ class APIHandler {
 
 }
 
-export {APIHandler};
+export {ProfileAPI};

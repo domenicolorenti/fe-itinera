@@ -1,7 +1,7 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { APIHandler } from '../../utils/APIHandler';
+import { ProfileAPI } from '../../api/ProfileAPI';
 import Template from './Template';
 import { Switch, ThemeProvider, createTheme } from '@mui/material';
 
@@ -28,7 +28,7 @@ const MySwitch = (props: any) => {
 }
 
 const Login = (props: any) => {
-  const api = new APIHandler();
+  const api = new ProfileAPI();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import SideBar from './components/SideBar/SideBar';
 import AppRoutes from './components/AppRoutes';
-import { APIHandler } from './utils/APIHandler';
+import { APIHandler } from './api/ProfileAPI';
 
 interface User {
   username: string,

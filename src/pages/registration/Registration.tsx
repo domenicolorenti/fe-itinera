@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { APIHandler } from '../../utils/APIHandler';
+import { Link } from 'react-router-dom';
+import { ProfileAPI } from '../../api/ProfileAPI';
 import { Alert, Snackbar } from '@mui/material';
 import Welcome from './Welcome';
 import Template from '../login/Template';
@@ -22,15 +22,13 @@ const MyAlert = (props: any) => {
     );
 }
 
-const BusinessRegistration = (props: any) => {
-    const api = new APIHandler();
+const Registration = (props: any) => {
+    const api = new ProfileAPI();
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [retypePassword, setRetypePassword] = useState("");
-
-    const navigate = useNavigate();
 
     const [alertOpen, setAlertOpen] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -137,5 +135,5 @@ const BusinessRegistration = (props: any) => {
     );
 };
 
-export default BusinessRegistration;
+export default Registration;
 
