@@ -1,9 +1,10 @@
 
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ProfileAPI } from '../../api/ProfileAPI';
 import Template from './Template';
 import { Switch, ThemeProvider, createTheme } from '@mui/material';
+import { APIManager } from '../../api/APIManager';
+import { APIConfig } from '../../api/APIConfig';
 
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
@@ -28,7 +29,7 @@ const MySwitch = (props: any) => {
 }
 
 const Login = (props: any) => {
-  const api = new ProfileAPI();
+  const api = new APIManager();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -82,11 +83,11 @@ const Login = (props: any) => {
     };
 
     if (business) {
-      api.post("/businessLogin", requestBody)
+      api.post(APIConfig.PROFILEADDRESS,"/businessLogin", requestBody)
         .then((res) => parseResult(res));
     }
     else {
-      api.post("/login", requestBody)
+      api.post(APIConfig.PROFILEADDRESS,"/login", requestBody)
         .then((res) => parseResult(res));
     }
   }

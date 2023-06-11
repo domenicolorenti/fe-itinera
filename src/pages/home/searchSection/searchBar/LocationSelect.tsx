@@ -1,7 +1,7 @@
 import { Autocomplete, TextField, ThemeProvider, createTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { APIHandler } from "../../../../api/ProfileAPI";
-
+import { APIManager } from "../../../../api/APIManager";
+import { APIConfig } from "../../../../api/APIConfig";
 const theme = createTheme({
   palette: {
     primary: {
@@ -13,13 +13,13 @@ const theme = createTheme({
 export default function LocationSelect(props: any) {
   const [cities, setCities] = useState([]);
 
-  const api = new SearchAPI();
+  const api = new APIManager();
 
   useEffect(() => {
-    fetch("http://192.168.1.151:8081/getCities")
+    api.get(APIConfig.SEARCHADDRESS, "/getCities")
       .then((res) => res.json())
       .then((result) => setCities(result),
-        (error) => console.log("Error fetching supported crypto "));
+        (error) => console.log("Error", error));
   }, []);
 
   return (

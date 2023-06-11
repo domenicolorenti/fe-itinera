@@ -3,7 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import SideBar from './components/SideBar/SideBar';
 import AppRoutes from './components/AppRoutes';
-import { APIHandler } from './api/ProfileAPI';
+import { APIManager } from './api/APIManager';
+import { APIConfig } from './api/APIConfig';
 
 interface User {
   username: string,
@@ -26,7 +27,7 @@ export default function App() {
   const [sidebarChange, setSidebarChange] = useState(false);
   const [accessToken, setAccessToken] = useState(localStorage.getItem("Auth Token"));
 
-  const api = new APIHandler();
+  const api = new APIManager();
 
   const doCheck = () => {
     const checkLoginHeaders = {
@@ -35,7 +36,7 @@ export default function App() {
       'Authorization': String(accessToken)
     }
 
-    api.getWithHeaders("/checkLogin", checkLoginHeaders)
+    api.getWithHeaders(APIConfig.PROFILEADDRESS, "/checkLogin", checkLoginHeaders)
         .then(res => parseResult(res));
   }
 

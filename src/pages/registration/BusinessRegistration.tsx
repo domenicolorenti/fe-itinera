@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ProfileAPI } from '../../api/ProfileAPI';
 import { Alert, Snackbar } from '@mui/material';
 import Welcome from './Welcome';
+import { APIManager } from '../../api/APIManager';
+import { APIConfig } from '../../api/APIConfig';
 
 const defaultFieldsStyle: string = "w-full h-12 my-4 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-4 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
@@ -28,7 +29,7 @@ const MyAlert = (props: any) => {
 }
 
 const BusinessRegistration = (props: any) => {
-  const api = new ProfileAPI();
+  const api = new APIManager();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -110,7 +111,7 @@ const BusinessRegistration = (props: any) => {
       'phone': phone
     };
 
-    api.post("/businessRegistration", requestBody)
+    api.post(APIConfig.PROFILEADDRESS, "/businessRegistration", requestBody)
       .then((res) => parseResult(res));
   }
 

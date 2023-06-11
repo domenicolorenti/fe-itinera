@@ -1,22 +1,23 @@
+import { APIConfig } from "./APIConfig";
 
-class ProfileAPI {
+class APIManager {
 
-  private serverAddress: string = "192.168.1.151";
-  private serverLink: string = `http://${this.serverAddress}:8080`
-  private static instance: ProfileAPI;
+
+  private static instance: APIManager;
 
   constructor() {
-    if (!ProfileAPI.instance) {
+    if (!APIManager.instance) {
       // Logica per creare l'istanza del singleton
-      ProfileAPI.instance = this;
+      APIManager.instance = this;
     }
 
-    return ProfileAPI.instance;
+    return APIManager.instance;
   }
 
-  async get(url: string) {
+  async get(address:string, url: string) {
+    const link = address+url;
     try {
-      const response = await fetch(this.serverLink + url, {
+      const response = await fetch(link, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -29,9 +30,10 @@ class ProfileAPI {
     }
   }
 
-  async getWithHeaders(url: string, headers: any) {
+  async getWithHeaders(address:string, url: string, headers: any) {
+    const link = address+url;
     try {
-      const response = await fetch(this.serverLink + url, {
+      const response = await fetch(link, {
         method: 'GET',
         headers: headers
       });
@@ -42,9 +44,10 @@ class ProfileAPI {
     }
   }
 
-  async post(url: string, body: any) {
+  async post(address:string, url: string, body: any) {
+    const link = address+url;
     try {
-      const response = await fetch(this.serverLink + url, {
+      const response = await fetch(link, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,4 +63,4 @@ class ProfileAPI {
 
 }
 
-export {ProfileAPI};
+export {APIManager};

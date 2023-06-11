@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
+import { HiSearch } from 'react-icons/hi';
 import { useLocation } from 'react-router-dom'
+import ResultCard from './ResultCard';
+import { APIManager } from '../../api/APIManager';
+import { APIConfig } from '../../api/APIConfig';
 
 const Search = () => {
-  const loc = useLocation();
+  const [result, setResult] = useState([]);
 
-  const location:string = loc.state.location;
+  const loc = useLocation();
+  const api = new APIManager();
+
+  const location: string = loc.state.location;
   const date: Map<any, any> = loc.state.mapDate;
   const price: number[] = loc.state.price;
 
@@ -17,13 +24,40 @@ const Search = () => {
   }
 
   useEffect(() => {
-
+    api.get(APIConfig.SEARCHADDRESS, "/getResult")
+      .then((res) => res.json())
+      .then((result) => setResult(result),
+        (error) => console.log("Error", error));
   }, []);
+
+  const handleSubmit = () => {
+
+  }
 
 
   return (
-    <div>
-      
+    <div className="flex flex-col justify-center items-center w-full my-8">
+      <form className="flex flex-row w-1/2 p-2 m-4 border rounded-2xl ">
+        <input
+          className="w-full mx-2 focus:outline-none"
+          type="text"
+          placeholder="Search"
+        />
+        <button className="bg-gray-800 rounded-xl shadow px-6 py-2 ml-auto focus:outline-none" type="submit" onSubmit={handleSubmit}>
+          <HiSearch className="text-xl text-white" />
+        </button>
+      </form>
+      <div className="flex flex-col w-2/3 p-4 justify-center items-center">
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+        <ResultCard />
+      </div>
     </div>
   )
 }
