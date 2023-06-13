@@ -122,7 +122,7 @@ const BusinessRegistration = (props: any) => {
           <Welcome />
           :
           <div className="flex justify-center items-center">
-            <div className="flex flex-row w-3/4 my-24 justify-center bg-white rounded-xl lg:shadow-2xl " >
+            <div className="flex flex-row w-3/4 my-48 justify-center bg-white border rounded-xl lg:shadow-2xl " >
               <div className="flex justify-center">
                 <MyAlert open={alertOpen} />
                 <div className="lg:grid grid-cols-3">

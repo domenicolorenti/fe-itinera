@@ -1,27 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Alert, Snackbar } from '@mui/material';
 import Welcome from './Welcome';
 import Template from '../login/Template';
 import { APIManager } from '../../api/APIManager';
 import { APIConfig } from '../../api/APIConfig';
+import MyAlert from '../../components/MyAlert';
 
 const defaultFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none";
 const errorFieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-red-600 border-2 rounded-xl focus:outline-none";
 
-const MyAlert = (props: any) => {
-    return (
-        <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            open={props.open}
-            autoHideDuration={6000}
-        >
-            <Alert severity="error" sx={{ width: '100%' }}>
-                User Already Exist!
-            </Alert>
-        </Snackbar>
-    );
-}
 
 const Registration = (props: any) => {
     const api = new APIManager();
@@ -103,7 +90,7 @@ const Registration = (props: any) => {
     const Form = () => {
         return (
             <>
-                <MyAlert open={alertOpen} />
+                <MyAlert open={alertOpen} text="User already exist!"/>
                 <div className="flex flex-col lg:w-3/4 xl:w-2/3 2xl:w-1/2">
                     <img className="" src={require("../../res/logo.png")} alt="" />
                     <h1 className="text-gray-800 text-2xl mx-4">Sign Up</h1>

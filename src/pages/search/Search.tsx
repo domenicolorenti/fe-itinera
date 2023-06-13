@@ -6,8 +6,16 @@ import { APIManager } from '../../api/APIManager';
 import { APIConfig } from '../../api/APIConfig';
 import { Results } from './Results';
 
+interface Result {
+  name: string,
+  email: string,
+  address:string,
+  description: string,
+  value: number
+}
+
 const Search = () => {
-  const [result, setResult] = useState([]);
+  const [results, setResult] = useState<Result[]>([]);
 
   const loc = useLocation();
   const api = new APIManager();
@@ -51,12 +59,9 @@ const Search = () => {
       <div className="flex flex-col w-2/3 p-4 justify-center items-center">
         {(
           <>
-            {Results.map((item) => (
+            {results.map((item) => (
               <ResultCard
-                name={item.name}
-                address={item.address}
-                description={item.description}
-                value={item.value}
+                item={item}
               />
             ))}
           </>
