@@ -4,14 +4,13 @@ import { useLocation } from 'react-router-dom'
 import ResultCard from './ResultCard';
 import { APIManager } from '../../api/APIManager';
 import { APIConfig } from '../../api/APIConfig';
-import { Results } from './Results';
 
 interface Result {
   name: string,
   email: string,
-  address:string,
+  address: string,
   description: string,
-  value: number
+  vote: number
 }
 
 const Search = () => {
@@ -59,8 +58,9 @@ const Search = () => {
       <div className="flex flex-col w-2/3 p-4 justify-center items-center">
         {(
           <>
-            {results.map((item) => (
+            {results.map((item, val) => (
               <ResultCard
+                key={val}
                 item={item}
               />
             ))}

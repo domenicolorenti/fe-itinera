@@ -41,7 +41,6 @@ export default function App() {
   }
 
   useEffect(() => {
-    console.log("token: " + accessToken);
     if (accessToken === "") {
       setUserLogged(null);
       saveToken("");

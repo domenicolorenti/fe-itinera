@@ -19,10 +19,10 @@ export default function SearchDropdown(props: any) {
         width: 'auto',
         overflow: 'hidden',
         transition: 'max-height 0.2s ease',
-      };
+    };
 
     return (
-        <div className="flex flex-row w-full rounded-xl">
+        <div className="flex flex-row w-full ">
             <div className="flex flex-col my-auto mx-3">
                 <button
                     className="focus:outline-none mx-1"
@@ -32,7 +32,9 @@ export default function SearchDropdown(props: any) {
                     aria-expanded={open ? 'true' : undefined}
                     onClick={handleClick}
                 >
-                    <h3 className="flex flex-row text-gray-800">{props.title}<HiChevronDown className="mx-1 my-auto"/></h3>
+                    <h3 className="flex flex-row text-gray-800">{props.title}
+                        <HiChevronDown className="mx-1 my-auto" />
+                    </h3>
                 </button>
                 <h3 className="text-xs text-gray-600">{props.value}</h3>
             </div>
@@ -43,7 +45,7 @@ export default function SearchDropdown(props: any) {
                 open={open}
                 onClose={handleClose}
                 MenuListProps={{
-                'aria-labelledby': 'basic-button',
+                    'aria-labelledby': 'basic-button',
                 }}
             >
                 {props.obj}

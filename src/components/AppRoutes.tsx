@@ -9,7 +9,7 @@ import BusinessDashboard from '../pages/profile/BusinessDashboard';
 import ProfileHome from '../pages/profile/profileNavigation.tsx/ProfileHome';
 import Search from '../pages/search/Search';
 import Visit from '../pages/visit/Visit';
-import Review from '../pages/review/Review';
+import AddReview from '../pages/review/AddReview';
 
 
 const AppRoutes = (props: any) => {
@@ -28,7 +28,7 @@ const AppRoutes = (props: any) => {
             </Route>
             <Route path="/search" element={<Search/>}/>
             <Route path="/visit" element={<Visit/>}/>
-            <Route path="/review" element={<Review/>}/>
+            <Route path="/addreview" element={<AddReview userLogged={props.userLogged}/>}/>
         </Routes>
     )
 }

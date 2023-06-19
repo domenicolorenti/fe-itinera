@@ -16,7 +16,15 @@ interface Business {
     vote: number
 }
 
-const Visit = () => {
+interface Review {
+    userName: string,
+    title: string,
+    descriptiion: string,
+    vote: number,
+    date: Date
+}
+
+const Visit = (props: any) => {
 
     const navigate = useNavigate();
 
@@ -25,8 +33,7 @@ const Visit = () => {
     const api = new APIManager();
 
     const [user, setUser] = useState<Business>();
-    const [reviews, setReviews] = useState([]);
-
+    const [reviews, setReviews] = useState<Review[]>([]);
 
 
     useEffect(() => {
@@ -34,9 +41,18 @@ const Visit = () => {
 
         api.get(APIConfig.PROFILEADDRESS, url)
             .then(res => res.json())
-            .then(result => setUser(result["user"]),
-            (error) => console.log("error", error));
-    },[email]);
+            .then((result) => setUser(result["user"]),
+                (error) => console.log("error", error));
+    }, [email]);
+
+    useEffect(() => {
+        const url = `/getBusinessReviews?email=${email}`;
+
+        api.get(APIConfig.REVIEWADDRESS, url)
+            .then(res => res.json())
+            .then(result => setReviews(result),
+                (error) => console.log("error", error));
+    }, []);
 
 
     const handleAddReview = () => {
@@ -45,7 +61,7 @@ const Visit = () => {
             email: user?.email
         }
 
-        navigate("/review", {state: businessData});
+        navigate("/addreview", { state: businessData });
     }
 
     return (
@@ -65,7 +81,11 @@ const Visit = () => {
                     <div className="flex flex-col m-8 space-y-8">
                         <h3 className="text-xl">Address: {user?.address}</h3>
                         <h3 className="text-xl">City: {user?.city}</h3>
-                        <Rating name="read-only" value={user?.vote ?? 0} readOnly />
+                        <div className="flex flex-row space-x-2">
+                            <Rating name="read-only" value={user?.vote ?? 0} precision={0.5} readOnly />
+                            <h3 className="text-lg">{user?.vote.toFixed(1)}</h3>
+                        </div>
+
                     </div>
                     <div className="flex flex-col m-8 space-y-8">
                         <h3 className="text-xl">Owner: {user?.owner}</h3>
@@ -77,13 +97,17 @@ const Visit = () => {
             <div id="reviews" className="flex flex-col w-3/4 mx-auto mt-12">
                 <h1 className="text-4xl border-b">Reviews</h1>
                 <button className="p-2 font-bold bg-gray-800 text-white rounded-xl mt-12 focus:outline-none" onClick={handleAddReview}>Add Review</button>
-                <div className="flex flex-col divide-y p-6 my-4 rounded-xl border shadow-2xl">
-                    <ReviewCard />
-                    <ReviewCard />
-                    <ReviewCard />
-                    <ReviewCard />
-                    <ReviewCard />
-                    <ReviewCard />
+                <div className="flex flex-col my-6 space-y-6">
+                    {(
+                        <>
+                            {reviews.map((item, val) => (
+                                <ReviewCard
+                                    key={val}
+                                    item={item}
+                                />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
 

@@ -98,10 +98,10 @@ const Login = (props: any) => {
         <img className="" src={require("../../res/logo.png")} alt="" />
         <h1 className="text-gray-800 text-2xl mx-4">Sign In</h1>
         <div id="form" className="flex flex-col p-4">
-          <MySwitch business={business} setBusiness={setBusiness}/>
           {(errorLabel && <label className="text-red-600 text-center">Invalid Username and Password</label>)}
           <input type="text" placeholder="Username" className={`${getFieldsStyle()}`} onChange={(ev) => setUsername(ev.target.value)} />
           <input type="password" placeholder="Password" className={`${getFieldsStyle()}`} onChange={(ev) => setPassword(ev.target.value)}></input>
+          <MySwitch business={business} setBusiness={setBusiness}/>
           <button onClick={doLogin} className="mx-auto bg-gray-800 text-white text-lg rounded-xl my-6 p-3 focus:outline-none">Sign In</button>
           <label className="text-center">Don't have an account yet? Click <Link to="/registrationType" className="text-blue-600">here.</Link></label>
         </div>

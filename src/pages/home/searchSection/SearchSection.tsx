@@ -4,51 +4,35 @@ import { HiSearch } from 'react-icons/hi'
 import PriceSelect from './searchBar/PriceSelect'
 import SearchDropdown from './searchBar/SearchDropdown'
 import DataSelect from './searchBar/DataSelect'
-import dayjs, { Dayjs } from 'dayjs'
 import { useNavigate } from 'react-router-dom'
 
 
-const dateAsMap = (date: Dayjs | null) => {
-    const map = new Map();
-
-    map.set('day', date?.date());
-    map.set('month', date?.month());
-    map.set('year', date?.year());
-
-    return map;
-}
-
 const SearchBar = (props: any) => {
     const [price, setPrice] = useState<number[]>([0, 100]);
-    const [date, setDate] = useState<Dayjs | null>(dayjs(new Date()));
+    const [date, setDate] = useState<string>(new Date().toISOString().substring(0, 10));
     const [location, setLocation] = useState("");
-    const mapDate = dateAsMap(date);
 
     const navigate = useNavigate();
 
-    const dateToString = () => {
-        return "" + date?.date() + "/" + date?.month() + "/" + date?.year();
-    }
-
     const priceToString = () => {
-        return "€" + price[0] + " - " + "€" + price[1];
+        return `€${price[0]} - €${price[1]}`;
     }
 
     const doSearch = () => {
         const searchData = {
             price,
-            mapDate,
+            date,
             location,
         };
         navigate("/search", {state: searchData});
     }
 
     return (
-        <div id="search" className={"flex flex-col lg:flex-row shadow-2xl border px-4 lg:px-2 my-5 bg-white border-gray-200 rounded-xl  " + props.class}>
+        <div id="search" className={"flex flex-col xl:flex-row shadow-2xl border px-4 xl:px-2 my-5 bg-white border-gray-200 rounded-xl  " + props.class}>
             <LocationSelect setLocation={setLocation} />
             <div className="flex">
-                <div className="flex mx-2 ">
-                    <SearchDropdown title="Data" value={dateToString()} obj={<DataSelect date={date} setDate={setDate} />} />
+                <div className="flex mx-2 divide-x py-3">
+                    <DataSelect date={date} setDate={setDate} />
                     <SearchDropdown title="Price" value={priceToString()} obj={<PriceSelect price={price} setPrice={setPrice} />} />
                 </div>
                 <button
@@ -63,18 +47,19 @@ const SearchBar = (props: any) => {
 }
 
 const SearchSection = () => {
+
     return (
         <div className="flex flex-col w-full md:w-3/4 2xl:w-2/3 3xl:w-7/12 4xl:w-1/2 p-6">
             <div className="relative grid grid-cols-2">
-                <div className="mr-2 lg:mr-24 xl:mr-40 2xl:mr-60">
+                <div className="mr-2 xl:mr-24 xl:mr-40 2xl:mr-60">
                     <img className="" src={require("../../../res/search-title2.png")} alt="" />
-                    <SearchBar class="hidden lg:flex absolute md:w-7/12 " />
+                    <SearchBar class="hidden xl:flex absolute md:w-7/12 " />
                 </div>
                 <div className="">
                     <img className="" src={require("../../../res/search-image.png")} alt="" />
                 </div>
             </div>
-            <SearchBar class="my-8 lg:hidden" />
+            <SearchBar class="my-8 xl:hidden" />
         </div>
     )
 }
