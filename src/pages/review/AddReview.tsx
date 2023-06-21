@@ -102,7 +102,7 @@ const AddReview = (props: any) => {
                             <label className="text-lg mt-8">Description:</label>
                             <textarea className={fieldsStyle + "h-56 resize-none"} placeholder="I liked it because..." onChange={ev => setDescription(ev.target.value)} />
                             <label className="text-lg mt-8">Add a Photo:</label>
-                            <input className={fieldsStyle} type="file" />
+                            <input type="file" ref={inputImage} onChange={(e) => handleOnChange(e)} />
                             <button
                                 onClick={handleSubmit}
                                 className="mx-auto bg-gray-800 text-white text-xl rounded-xl mt-8 px-6 py-3 focus:outline-none"
