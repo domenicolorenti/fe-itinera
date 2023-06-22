@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import MyAlert, { MySuccess } from '../../components/MyAlert';
 import { APIManager } from '../../api/APIManager';
 import { APIConfig } from '../../api/APIConfig';
+import scaleImage from '../../utils/ImageConverter';
 
 const fieldsStyle: string = "w-full h-12 my-2 p-2 text-md border-2 rounded-xl focus:border-4 focus:border-gray-800 focus:outline-none ";
 
@@ -23,6 +24,7 @@ const AddReview = (props: any) => {
     const [date, setDate] = useState<string>();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [image, setImage] = useState();
 
     const showAlert = () => {
         setAlertOpen(true);
@@ -71,12 +73,26 @@ const AddReview = (props: any) => {
             'title': title,
             'description': description,
             'vote': vote,
-            'date': date
+            'date': date,
+            'image': image
         };
 
         api.post(APIConfig.REVIEWADDRESS, "/publish", requestBody)
             .then((res) => parseResult(res));
     }
+
+
+    // manage input-image decode
+
+    const changeImage = (e: any) => {
+        if(e.target.files && e.target.files[0])
+            convertToBase64(e.target.files[0]);
+    }
+
+    const convertToBase64 = (file: any) => {
+        scaleImage(file, setImage, () => props.showError("Cannot load image, please retry!", "form"));
+    }
+
     return (
         <div className="flex justify-center items-center">
             <MyAlert open={alertOpen} text={alertText} />
@@ -102,7 +118,7 @@ const AddReview = (props: any) => {
                             <label className="text-lg mt-8">Description:</label>
                             <textarea className={fieldsStyle + "h-56 resize-none"} placeholder="I liked it because..." onChange={ev => setDescription(ev.target.value)} />
                             <label className="text-lg mt-8">Add a Photo:</label>
-                            <input type="file" ref={inputImage} onChange={(e) => handleOnChange(e)} />
+                            <input type="file" onChange={(e) => changeImage(e)} />
                             <button
                                 onClick={handleSubmit}
                                 className="mx-auto bg-gray-800 text-white text-xl rounded-xl mt-8 px-6 py-3 focus:outline-none"

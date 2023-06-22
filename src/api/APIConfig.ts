@@ -1,7 +1,7 @@
 class APIConfig {
     
     //currently the only server
-    public static SERVERIP:string  = "http://172.20.10.4";
+    public static SERVERIP:string  = "http://192.168.1.151";
 
     //all combination ip:port for mappig each back-end
     public static PROFILEADDRESS: string = `${this.SERVERIP}:8080`;
