@@ -13,6 +13,7 @@ const ProfileButton = (props:{link:string, text:string}) => {
 
 const BusinessDashboard = () => {
 
+
     return (
         <div className="flex w-full justify-center">
             <div className="p-4 w-full my-16 md:w-5/6 bg-gray-100 rounded-xl">

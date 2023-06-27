@@ -22,8 +22,8 @@ export function MySuccess(props: any) {
             autoHideDuration={6000}
         >
             <Alert severity="success" sx={{ width: '100%' }}>
-                <AlertTitle>Review published!</AlertTitle>
-                Your review is now visible, thank you!
+                <AlertTitle>{props.title}</AlertTitle>
+                {props.text}
             </Alert>
         </Snackbar>
     );
