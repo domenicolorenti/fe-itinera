@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APIManager } from '../../api/APIManager';
 import { APIConfig } from '../../api/APIConfig';
-import { Rating } from '@mui/material';
+import { Dialog, Rating } from '@mui/material';
 import ReviewCard from './ReviewCard';
 
 interface Business {
@@ -16,7 +16,13 @@ interface Business {
     vote: number
 }
 
+interface Photo {
+    review: number,
+    photo: string
+}
+
 interface Review {
+    cod: String,
     userName: string,
     title: string,
     descriptiion: string,
@@ -34,6 +40,9 @@ const Visit = (props: any) => {
 
     const [user, setUser] = useState<Business>();
     const [reviews, setReviews] = useState<Review[]>([]);
+    const [image, setImage] = useState<Photo>();
+
+    const [showImage, setShowImage] = useState(false);
 
 
     useEffect(() => {
@@ -51,6 +60,15 @@ const Visit = (props: any) => {
         api.get(APIConfig.REVIEWADDRESS, url)
             .then(res => res.json())
             .then(result => setReviews(result),
+                (error) => console.log("error", error));
+    }, [email]);
+
+    useEffect(() => {
+        const url = `/getBusinessPhoto?email=${email}`;
+
+        api.get(APIConfig.PHOTOADDRESS, url)
+            .then(res => res.json())
+            .then((result) => setImage(result),
                 (error) => console.log("error", error));
     }, []);
 
@@ -94,6 +112,8 @@ const Visit = (props: any) => {
                     </div>
                 </div>
             </div>
+
+
             <div id="reviews" className="flex flex-col w-3/4 mx-auto mt-12">
                 <h1 className="text-4xl border-b">Reviews</h1>
                 <button className="p-2 font-bold bg-gray-800 text-white rounded-xl mt-12 focus:outline-none" onClick={handleAddReview}>Add Review</button>

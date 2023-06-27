@@ -96,7 +96,7 @@ const AddReview = (props: any) => {
     return (
         <div className="flex justify-center items-center">
             <MyAlert open={alertOpen} text={alertText} />
-            <MySuccess open={success} />
+            <MySuccess open={success} title="Review published!" text="Your review is now visible, thank you!"/>
             <div className="flex flex-col w-3/4 my-24 " >
                 <h1 className="text-4xl text-gray-800 border-b font-bold mx-4 my-16">Share your Experience!</h1>
                 <div className="flex flex-row divide-x bg-white border rounded-xl md:shadow-2xl">
@@ -116,7 +116,7 @@ const AddReview = (props: any) => {
                             <label className="text-lg mt-8">Title:</label>
                             <input className={fieldsStyle} type="text" placeholder="My Review" onChange={ev => setTitle(ev.target.value)} />
                             <label className="text-lg mt-8">Description:</label>
-                            <textarea className={fieldsStyle + "h-56 resize-none"} placeholder="I liked it because..." onChange={ev => setDescription(ev.target.value)} />
+                            <textarea className={fieldsStyle + " h-56 resize-none"} placeholder="I liked it because..." onChange={ev => setDescription(ev.target.value)} />
                             <label className="text-lg mt-8">Add a Photo:</label>
                             <input type="file" onChange={(e) => changeImage(e)} />
                             <button

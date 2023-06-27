@@ -10,6 +10,7 @@ import ProfileHome from '../pages/profile/profileNavigation.tsx/ProfileHome';
 import Search from '../pages/search/Search';
 import Visit from '../pages/visit/Visit';
 import AddReview from '../pages/review/AddReview';
+import Ranking from '../pages/ranking/Rankings';
 
 
 const AppRoutes = (props: any) => {
@@ -29,6 +30,7 @@ const AppRoutes = (props: any) => {
             <Route path="/search" element={<Search/>}/>
             <Route path="/visit" element={<Visit/>}/>
             <Route path="/addreview" element={<AddReview userLogged={props.userLogged}/>}/>
+            <Route path="/rankings" element={<Ranking/>}/>
         </Routes>
     )
 }

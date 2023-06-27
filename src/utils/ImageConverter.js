@@ -1,5 +1,5 @@
-const MAX_WIDTH = 180;
-const MAX_HEIGHT = 180;
+const MAX_WIDTH = 800;
+const MAX_HEIGHT = 800;
 const MIME_TYPE = "image/jpeg";
 const QUALITY = 0.7;
 
