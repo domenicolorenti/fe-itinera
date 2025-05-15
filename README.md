@@ -1,5 +1,7 @@
 # Itinera Frontend
 
+![Itinera Home Page](public/Home-itinera.png)
+
 Itinera is a composable application designed for searching and reviewing restaurants, bars, and other venues. This frontend application is built to interact with multiple backend services, providing a seamless user experience for venue discovery and reviews.
 
 ## 🚀 Features
